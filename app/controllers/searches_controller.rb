@@ -7,7 +7,7 @@ class SearchesController < ApplicationController
   end
 
   def create
-    search_query = params[:search_query]
+    search_query = params[:search_query]&.downcase
 
     if search_query.present?
       current_user.searches.create(search_query: search_query)
@@ -27,7 +27,10 @@ class SearchesController < ApplicationController
   end
 
   def generate_popular_searches(search_logs)
-    search_logs.group(:search_query).count.sort_by { |_, count| -count }.to_h
+    normalized_search_logs = search_logs.each { |log| log.search_query.downcase! }
+
+    normalized_search_logs.group_by(&:search_query).transform_values(&:count)
+                         .sort_by { |_, count| -count }.to_h
   end
 
   def debounce_action
