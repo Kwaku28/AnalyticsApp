@@ -1,25 +1,55 @@
+<div class='container-fluid'>
+  <h1 class='display-5 text-align-center d-flex justify-content-center mb-5'>Search Analytics Dashboard</h1>
 
-<h1>Search Analytics Dashboard</h1>
+  <%= form_with(url: searches_path, method: 'post', data: { controller: "form", turbo_action: "advance" }, class: "row g-3 justify-content-center") do |form| %>
+    <div class='col-auto'>
+      <%= form.text_field :search_query, id: 'search-query', data: { action: "input->form#search" }, placeholder: 'Search...', autocomplete: 'off', class: "form-control" %>
+    </div>
+    <div class='col-auto'>
+      <%= form.submit 'Submit', class: "btn btn-primary mb-3" %>
+    </div>
+    
+  <% end %>
 
-<%= form_with(url: searches_path, method: 'post', data: { controller: "form", turbo_action: "advance" }) do |form| %>
-  <%= form.text_field :search_query, id: 'search-query', data: { action: "input->form#search" }, placeholder: 'Search...', autocomplete: 'off' %>
-  <%= form.submit 'Search' %>
-<% end %>
+  <div class='container d-flex justify-content-around'>
+    <div>
+      <h2 class='display-6'>Recent Searches</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Search Phrases</th>
+            <th scope="col">Time of Search</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @searches.each do |search_log| %>
+            <tr>
+              <td><%= search_log.search_query %></td>
+              <td><%= search_log.created_at.strftime("%d %B %Y, %H:%M") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
-<div>
-  <h2>Popular Searches</h2>
-  <ul>
-    <% @search_analytics[:popular_searches].each do |search_query, count| %>
-      <li><%= "#{search_query}: #{count}" %></li>
-    <% end %>
-  </ul>
-</div>
-
-<div>
-  <h2>Recent Searches</h2>
-  <ul>
-    <% @searches.each do |search_log| %>
-      <li><%= search_log.search_query %> - <%= search_log.created_at %></li>
-    <% end %>
-  </ul>
+    <div>
+      <h2 class='display-6'>Popular Searches</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Search Phrases</th>
+            <th scope="col">Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @search_analytics[:popular_searches].each do |search_query, count| %>
+            <tr>
+              <td><%= "#{search_query}" %></td>
+              <td><%= "#{count}" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
