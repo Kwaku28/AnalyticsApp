@@ -12,7 +12,6 @@
 - [ Search Analytics ](#-about-project-)
 - [🛠 Built With ](#-built-with-)
   - [📌 Tech Stack ](#-tech-stack-)
-- [🎲 Key Features ](#-key-features-)
 - [🚀 Live Demo](#-live-demo-)
 - [💻 Getting Started ](#-getting-started-)
   - [Prerequisites](#prerequisites)
@@ -45,11 +44,9 @@ This app is a realtime search box, where users search articles, and then to have
 
 <!-- Features -->
 
-# 🎲 Key Features <a name="key-features"></a>
-
 # 🚀 Live Demo <a name="live-demo"></a>
 
-[Live Link](https://...)
+👉 [Live Demo](https://...)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
