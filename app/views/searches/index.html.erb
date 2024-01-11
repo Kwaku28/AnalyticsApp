@@ -1,0 +1,25 @@
+
+<h1>Search Analytics Dashboard</h1>
+
+<%= form_with(url: searches_path, method: 'post', data: { controller: "form", turbo_action: "advance" }) do |form| %>
+  <%= form.text_field :search_query, id: 'search-query', data: { action: "input->form#search" }, placeholder: 'Search...', autocomplete: 'off' %>
+  <%= form.submit 'Search' %>
+<% end %>
+
+<div>
+  <h2>Popular Searches</h2>
+  <ul>
+    <% @search_analytics[:popular_searches].each do |search_query, count| %>
+      <li><%= "#{search_query}: #{count}" %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div>
+  <h2>Recent Searches</h2>
+  <ul>
+    <% @searches.each do |search_log| %>
+      <li><%= search_log.search_query %> - <%= search_log.created_at %></li>
+    <% end %>
+  </ul>
+</div>
